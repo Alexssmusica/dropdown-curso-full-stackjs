@@ -23,7 +23,7 @@ export default class ExpressAdapter implements Http {
 	}
 
 	listen(port: number): void {
-		this.app.listen(port);
+		this.app.listen(port, () => console.log(`Servidor iniciado na porta ${port}`));
 	}
 
 }
