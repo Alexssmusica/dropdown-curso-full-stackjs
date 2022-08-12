@@ -8,7 +8,7 @@ export default class BoardRepositoryDatabase implements BoardRepository {
 	}
 
 	async findAll(): Promise<Board[]> {
-		const boardsData = await this.connection.query("select id_board, name from branas.board", []);
+		const boardsData = await this.connection.query("select id_board, name from dropdown.board", []);
 		const boards: Board[] = [];
 		for (const boardData of boardsData) {
 			const board = new Board(boardData.id_board, boardData.name);
@@ -18,22 +18,22 @@ export default class BoardRepositoryDatabase implements BoardRepository {
 	}
 
 	async get(idBoard: number): Promise<Board> {
-		const [boardData] = await this.connection.query("select * from branas.board where id_board = $1", [idBoard]);
+		const [boardData] = await this.connection.query("select * from dropdown.board where id_board = $1", [idBoard]);
 		if (!boardData) throw new Error("Board not found");
 		const board = new Board(boardData.id_board, boardData.name);
 		return board;
 	}
 
 	async save(board: Board): Promise<number> {
-		const [boardData] = await this.connection.query("insert into branas.board (name) values ($1) returning *", [board.name]);
+		const [boardData] = await this.connection.query("insert into dropdown.board (name) values ($1) returning *", [board.name]);
 		return boardData.id_board;
 	}
 
 	async update(board: Board): Promise<void> {
-		await this.connection.query("update branas.board set name = $1 where id_board = $2", [board.name, board.idBoard]);
+		await this.connection.query("update dropdown.board set name = $1 where id_board = $2", [board.name, board.idBoard]);
 	}
 
 	async delete(idBoard: number): Promise<void> {
-		await this.connection.query("delete from branas.board where id_board = $1", [idBoard]);
+		await this.connection.query("delete from dropdown.board where id_board = $1", [idBoard]);
 	}
 }

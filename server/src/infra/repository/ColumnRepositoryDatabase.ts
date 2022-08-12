@@ -8,7 +8,7 @@ export default class ColumnRepositoryDatabase implements ColumnRepository {
 	}
 
 	async findAllByIdBoard(idBoard: number): Promise<Column[]> {
-		const columnsData = await this.connection.query("select id_board, id_column, name, has_estimative from branas.column where id_board = $1", [idBoard]);
+		const columnsData = await this.connection.query("select id_board, id_column, name, has_estimative from dropdown.column where id_board = $1", [idBoard]);
 		const columns: Column[] = [];
 		for (const columnData of columnsData) {
 			columns.push(new Column(columnData.id_board, columnData.id_column, columnData.name, columnData.has_estimative));
@@ -17,21 +17,21 @@ export default class ColumnRepositoryDatabase implements ColumnRepository {
 	}
 
 	async save(column: Column): Promise<number> {
-		const [columnData] = await this.connection.query("insert into branas.column (id_board, name, has_estimative) values ($1, $2, $3) returning id_column", [column.idBoard, column.name, column.hasEstimative]);
+		const [columnData] = await this.connection.query("insert into dropdown.column (id_board, name, has_estimative) values ($1, $2, $3) returning id_column", [column.idBoard, column.name, column.hasEstimative]);
 		return columnData.id_column;
 	}
 
 	async get(idColumn: number): Promise<Column> {
-		const [columnData] = await this.connection.query("select id_board, id_column, name, has_estimative from branas.column where id_column = $1", [idColumn]);
+		const [columnData] = await this.connection.query("select id_board, id_column, name, has_estimative from dropdown.column where id_column = $1", [idColumn]);
 		if (!columnData) throw new Error("Column not found");
 		return new Column(columnData.id_board, columnData.id_column, columnData.name, columnData.has_estimative);
 	}
 
 	async update(column: Column): Promise<void> {
-		await this.connection.query("update branas.column set name = $1 where id_column = $2", [column.name, column.idColumn]);
+		await this.connection.query("update dropdown.column set name = $1 where id_column = $2", [column.name, column.idColumn]);
 	}
 
 	async delete(idColumn: number): Promise<void> {
-		await this.connection.query("delete from branas.column where id_column = $1", [idColumn]);
+		await this.connection.query("delete from dropdown.column where id_column = $1", [idColumn]);
 	}
 }
