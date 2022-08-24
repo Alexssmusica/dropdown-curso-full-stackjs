@@ -1,3 +1,4 @@
+import * as dotEnv from 'dotenv';
 import { ApolloServer } from 'apollo-server';
 import PgPromiseConnection from './infra/database/PgPromiseConnection';
 import BoardRepositoryDatabase from './infra/repository/BoardRepositoryDatabase';
@@ -6,6 +7,10 @@ import ColumnRepositoryDatabase from './infra/repository/ColumnRepositoryDatabas
 import BoardService from './service/BoardService';
 import CardService from './service/CardService';
 import ColumnService from './service/ColumnService';
+
+dotEnv.config({
+	path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
+});
 
 const connection = new PgPromiseConnection();
 const boardRepository = new BoardRepositoryDatabase(connection);
@@ -94,4 +99,4 @@ const resolvers = {
 };
 
 const server = new ApolloServer({ typeDefs, resolvers });
-server.listen(3002);
+server.listen(3002, () => console.log('Servidor graphql iniciado na porta 3002.'));

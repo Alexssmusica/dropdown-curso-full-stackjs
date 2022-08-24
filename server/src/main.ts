@@ -1,3 +1,4 @@
+import * as dotEnv from 'dotenv';
 import AuthController from './infra/controller/AuthController';
 import BoardController from './infra/controller/BoardController';
 import PgPromiseConnection from './infra/database/PgPromiseConnection';
@@ -5,6 +6,10 @@ import ExpressAdapter from './infra/http/ExpressAdapter';
 import BoardRepositoryDatabase from './infra/repository/BoardRepositoryDatabase';
 import CardRepositoryDatabase from './infra/repository/CardRepositoryDatabase';
 import ColumnRepositoryDatabase from './infra/repository/ColumnRepositoryDatabase';
+
+dotEnv.config({
+	path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
+});
 
 const connection = new PgPromiseConnection();
 const boardRepository = new BoardRepositoryDatabase(connection);
