@@ -1,6 +1,6 @@
 import Column from '../../domain/entity/Column';
 import ColumnRepository from '../../domain/repository/ColumnRepository';
-import { trataMensagemErrorTry } from '../../util/AppUtil';
+import { messageErrorTryCatchTreatment } from '../../util/AppUtil';
 import Connection from '../database/Connection';
 
 export default class ColumnRepositoryDatabase implements ColumnRepository {
@@ -20,8 +20,8 @@ export default class ColumnRepositoryDatabase implements ColumnRepository {
 			}
 			return columns;
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 
@@ -33,8 +33,8 @@ export default class ColumnRepositoryDatabase implements ColumnRepository {
 			);
 			return columnData.id_column;
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 
@@ -47,8 +47,8 @@ export default class ColumnRepositoryDatabase implements ColumnRepository {
 			if (!columnData) throw new Error('Column not found');
 			return new Column(columnData.id_board, columnData.id_column, columnData.name, columnData.has_estimative);
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 
@@ -59,8 +59,8 @@ export default class ColumnRepositoryDatabase implements ColumnRepository {
 				column.idColumn
 			]);
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 
@@ -68,8 +68,8 @@ export default class ColumnRepositoryDatabase implements ColumnRepository {
 		try {
 			await this.connection.query('delete from public.column where id_column = $1', [idColumn]);
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 }

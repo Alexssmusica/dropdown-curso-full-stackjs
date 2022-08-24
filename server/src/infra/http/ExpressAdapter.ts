@@ -1,6 +1,6 @@
 import Http from './Http';
 import express, { NextFunction, Request, Response } from 'express';
-import { trataMensagemErrorTry } from '../../util/AppUtil';
+import { messageErrorTryCatchTreatment } from '../../util/AppUtil';
 
 export default class ExpressAdapter implements Http {
 	app: any;
@@ -35,7 +35,7 @@ export default class ExpressAdapter implements Http {
 				res.json(output);
 			} catch (error) {
 				res.status(500)
-					.json({ message: trataMensagemErrorTry(error) })
+					.json({ message: messageErrorTryCatchTreatment(error) })
 					.end();
 			}
 		});

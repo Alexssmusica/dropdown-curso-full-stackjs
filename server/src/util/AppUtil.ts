@@ -1,4 +1,4 @@
-export function trataMensagemErrorTry(error: any) {
+export function messageErrorTryCatchTreatment(error: any) {
 	try {
 		let mensagem = '';
 		if (error) {

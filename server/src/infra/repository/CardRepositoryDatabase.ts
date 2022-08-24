@@ -1,6 +1,6 @@
 import Card from '../../domain/entity/Card';
 import CardRepository from '../../domain/repository/CardRepository';
-import { trataMensagemErrorTry } from '../../util/AppUtil';
+import { messageErrorTryCatchTreatment } from '../../util/AppUtil';
 import Connection from '../database/Connection';
 
 export default class CardRepositoryDatabase implements CardRepository {
@@ -20,8 +20,8 @@ export default class CardRepositoryDatabase implements CardRepository {
 			}
 			return cards;
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 
@@ -33,8 +33,8 @@ export default class CardRepositoryDatabase implements CardRepository {
 			);
 			return cardData.id_card;
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 
@@ -46,8 +46,8 @@ export default class CardRepositoryDatabase implements CardRepository {
 				card.idCard
 			]);
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 
@@ -55,8 +55,8 @@ export default class CardRepositoryDatabase implements CardRepository {
 		try {
 			await this.connection.query('delete from public.card where id_card = $1', [idCard]);
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 
@@ -68,8 +68,8 @@ export default class CardRepositoryDatabase implements CardRepository {
 				idCard
 			]);
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 
@@ -81,8 +81,8 @@ export default class CardRepositoryDatabase implements CardRepository {
 				return this.connection.query('select * from public.card where title like $1', [`%${title}%`]);
 			}
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 
@@ -92,8 +92,8 @@ export default class CardRepositoryDatabase implements CardRepository {
 			if (!cardData) throw new Error('Card not found');
 			return new Card(cardData.id_column, cardData.id_card, cardData.title, cardData.estimative, cardData.color);
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 }

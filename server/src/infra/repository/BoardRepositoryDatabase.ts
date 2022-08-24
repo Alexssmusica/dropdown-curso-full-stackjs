@@ -1,6 +1,6 @@
 import Board from '../../domain/entity/Board';
 import BoardRepository from '../../domain/repository/BoardRepository';
-import { trataMensagemErrorTry } from '../../util/AppUtil';
+import { messageErrorTryCatchTreatment } from '../../util/AppUtil';
 import Connection from '../database/Connection';
 
 export default class BoardRepositoryDatabase implements BoardRepository {
@@ -16,8 +16,8 @@ export default class BoardRepositoryDatabase implements BoardRepository {
 			}
 			return boards;
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw new Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw new Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 
@@ -30,8 +30,8 @@ export default class BoardRepositoryDatabase implements BoardRepository {
 			const board = new Board(boardData.id_board, boardData.name);
 			return board;
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 
@@ -42,8 +42,8 @@ export default class BoardRepositoryDatabase implements BoardRepository {
 			]);
 			return boardData.id_board;
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 
@@ -54,8 +54,8 @@ export default class BoardRepositoryDatabase implements BoardRepository {
 				board.idBoard
 			]);
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 
@@ -63,8 +63,8 @@ export default class BoardRepositoryDatabase implements BoardRepository {
 		try {
 			await this.connection.query('delete from public.board where id_board = $1', [idBoard]);
 		} catch (error) {
-			console.error(trataMensagemErrorTry(error));
-			throw Error(trataMensagemErrorTry(error));
+			console.error(messageErrorTryCatchTreatment(error));
+			throw Error(messageErrorTryCatchTreatment(error));
 		}
 	}
 }
